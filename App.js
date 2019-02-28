@@ -36,10 +36,23 @@ export default class App extends Component {
 
         if (rooms > 1) {
             if (adults + children > (rooms - 1) * 4) {
+                if (adults > children) {
+                    if (children / 4 > 1) {
+                        children = children - 4;
+                        adults = adults;
+                    } else {
+                        children = 0;
+                        adults = (rooms - 1) * 4;
+                    }
+                } else {
+                    adults = adults;
+                    children = children - 4;
+                }
+
                 this.setState({
                     rooms: rooms - 1,
-                    adults: (rooms - 1) * 4,
-                    children: (rooms - 2) * 4
+                    children: children,
+                    adults: adults
                 });
             } else {
                 this.setState({ rooms: rooms - 1 });
